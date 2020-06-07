@@ -11,7 +11,7 @@ F7::
     js = document.querySelectorAll("[data-message-id]")[0].querySelector("[data-hovercard-id]").getAttribute("jid")
     from := gmailPage.Evaluate(js).value
 
-    js = document.getElementsByTagName("H2")[4].innerText
+    js = document.querySelector("[data-thread-perm-id^='thread-f']").innerText
     subject := gmailPage.Evaluate(js).value
 
     js = document.querySelectorAll("[data-message-id]")[0].querySelector("[class^='a3s']").innerText
