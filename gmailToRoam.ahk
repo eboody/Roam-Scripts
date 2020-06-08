@@ -64,7 +64,8 @@ F7::
 ***Date:** %timeSent%
 ***Tags:** #[[Email]]
 #[[linebreak]]
-- # Links   
+- # Links
+
         )
     f.write(importedStuff)
 
