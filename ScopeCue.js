@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         left-border-highlighter
+// @name         ScopeCue
 // @namespace    http://tampermonkey.net/
 // @version      2.0
 // @description  makes the line to the sibling block orange
