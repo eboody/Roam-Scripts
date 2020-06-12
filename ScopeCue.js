@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         ScopeCue
-// @version      2.2
-// @description  Shows you which scope you're in
+// @namespace    http://tampermonkey.net/
+// @version      2.3
+// @description  makes the line to the sibling block orange
 // @author       @eboodnero
 // @match        https://www.w3schools.com/tags/ref_colornames.asp
 // @grant        none
@@ -13,10 +14,17 @@ var backgroundColor
 var oldBulletColor
 
 function addListenerToBlocks(){
+
+    // make the colors normal on mouse down
+    // Array.prototype.map.call(document.querySelectorAll(".flex-v-box.roam-block-container.block-bullet-view"), e => e.onmousedown = function(e){
+    //     normalize();
+    //     setTimeout(normalize, 50);
+    // })
     //highlight elements on mouse up
     Array.prototype.map.call(document.querySelectorAll(".flex-v-box.roam-block-container.block-bullet-view"), e => e.onmouseup = function(e){
         highlight();
         setTimeout(highlight, 50);
+        return
     })
 }
 //highlight the text area bullet, the left border of children of the sibling and the bullet of the sibling
@@ -69,13 +77,15 @@ function initialize(){
         if( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) || (e.which == 27)){
             normalize();
             setTimeout(normalize, 50);
+            return
         }
     };
     //if I press any of these keys highlight the colors of the elements mentioned above
     document.onkeyup = function(e) {
         if ( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) ){
-                highlight();
-                setTimeout(highlight, 50);
+            highlight();
+            setTimeout(highlight, 50);
+            return
         }
     };
     //refresh the listeners on mouseup
@@ -87,6 +97,7 @@ function initialize(){
     document.onmousedown = function(){
         normalize();
         setTimeout(normalize, 50);
+        return
     }
 }
 //don't initialize until the h1 element exists
@@ -96,5 +107,3 @@ var checkExist = setInterval(function() {
       clearInterval(checkExist);
    }
 }, 100); // check every 100ms
-
-
