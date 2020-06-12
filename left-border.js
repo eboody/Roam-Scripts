@@ -27,9 +27,9 @@ function highlight (){
 
         Array.prototype.map.call(document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
 
-        if (document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.nextElementSibling.innerText != "") {
+        //if (document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.nextElementSibling.innerText != "") {
             document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
-        }
+        //}
 }
 function normalize(){
 
@@ -64,3 +64,4 @@ function initialize(){
 }
 
 setTimeout(initialize, 5000);
+
