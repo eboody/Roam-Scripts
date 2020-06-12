@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         left-border-highlighter
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  makes the line to the sibling block orange
 // @author       @eboodnero
 // @match        https://www.w3schools.com/tags/ref_colornames.asp
