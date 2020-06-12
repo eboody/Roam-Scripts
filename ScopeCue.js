@@ -14,12 +14,6 @@ var backgroundColor
 var oldBulletColor
 
 function addListenerToBlocks(){
-
-    // make the colors normal on mouse down
-    // Array.prototype.map.call(document.querySelectorAll(".flex-v-box.roam-block-container.block-bullet-view"), e => e.onmousedown = function(e){
-    //     normalize();
-    //     setTimeout(normalize, 50);
-    // })
     //highlight elements on mouse up
     Array.prototype.map.call(document.querySelectorAll(".flex-v-box.roam-block-container.block-bullet-view"), e => e.onmouseup = function(e){
         highlight();
