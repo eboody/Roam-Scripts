@@ -12,21 +12,22 @@
 
 
 function highlight (){
-    if (document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("class") != "roam-article"){
+    document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+    var parent = document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("class")
+    if (!parent.includes("roam-article") && !parent.includes("roam-log")){
         Array.prototype.map.call(document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
         if (document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.nextElementSibling.innerText != "") {
             document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
         }
     }
-    //document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-inner").style.backgroundColor = "DarkOrange"
 }
 function normalize(){
     const oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
     const backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
-    //const oldBulletColor = window.getComputedStyle(document.querySelector(".simple-bullet-inner")).backgroundColor
+    const oldBulletColor = window.getComputedStyle(document.querySelector(".simple-bullet-inner")).backgroundColor
     Array.prototype.map.call(document.querySelectorAll(".block-border-left"), e => e.style.borderColor = oldColor)
     Array.prototype.map.call(document.querySelectorAll(".simple-bullet-outer"), e => e.style.backgroundColor = backgroundColor);
-    //document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-inner").style.backgroundColor = oldBulletColor
+    document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-inner").style.backgroundColor = oldBulletColor
 }
 
 
