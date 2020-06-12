@@ -24,7 +24,6 @@ function addListenerToBlocks(){
     Array.prototype.map.call(document.querySelectorAll(".flex-v-box.roam-block-container.block-bullet-view"), e => e.onmouseup = function(e){
         highlight();
         setTimeout(highlight, 50);
-        return
     })
 }
 //highlight the text area bullet, the left border of children of the sibling and the bullet of the sibling
@@ -77,7 +76,6 @@ function initialize(){
         if( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) || (e.which == 27)){
             normalize();
             setTimeout(normalize, 50);
-            return
         }
     };
     //if I press any of these keys highlight the colors of the elements mentioned above
@@ -85,7 +83,6 @@ function initialize(){
         if ( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) ){
             highlight();
             setTimeout(highlight, 50);
-            return
         }
     };
     //refresh the listeners on mouseup
@@ -97,7 +94,6 @@ function initialize(){
     document.onmousedown = function(){
         normalize();
         setTimeout(normalize, 50);
-        return
     }
 }
 //don't initialize until the h1 element exists
