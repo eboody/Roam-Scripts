@@ -8,6 +8,7 @@
 // @grant        none
 // ==/UserScript==
 
+//global vars
 var oldColor
 var backgroundColor
 var oldBulletColor
@@ -58,6 +59,7 @@ function normalize(){
 
 
 function initialize(){
+    initialize = 1
     //get the initial colors of inner, outer bullets and borders
     oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
     backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
@@ -88,8 +90,11 @@ function initialize(){
         normalize();
         setTimeout(normalize, 50);
     }
-
 }
-
-setTimeout(initialize, 5000);
-
+//don't initialize until the h1 element exists
+var checkExist = setInterval(function() {
+   if (document.querySelector('h1')) {
+      initialize();
+      clearInterval(checkExist);
+   }
+}, 100); // check every 100ms
