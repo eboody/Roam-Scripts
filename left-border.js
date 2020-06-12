@@ -9,7 +9,8 @@
 // ==/UserScript==
 
 var oldColor
-
+var backgroundColor
+var oldBulletColor
 //highlight and normalize on click
 document.onclick = function() {
     normalize();
@@ -32,20 +33,21 @@ function highlight (){
 }
 function normalize(){
 
-    const backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
-    const oldBulletColor = window.getComputedStyle(document.querySelector(".simple-bullet-inner")).backgroundColor
-
+    
     Array.prototype.map.call(document.querySelectorAll(".block-border-left"), e => e.style.borderColor = oldColor)
-
+    
     Array.prototype.map.call(document.querySelectorAll(".simple-bullet-outer"), e => e.style.backgroundColor = backgroundColor);
-
+    
     document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-inner").style.backgroundColor = oldBulletColor
 }
 
 
 function initialize(){
-
+    
     oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
+    backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
+    oldBulletColor = window.getComputedStyle(document.querySelector(".simple-bullet-inner")).backgroundColor
+    
     document.onkeydown = function(e) {
         if( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) || (e.which == 27)){
             normalize();
