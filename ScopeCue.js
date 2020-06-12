@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ScopeCue
 // @namespace    http://tampermonkey.net/
-// @version      2.0
+// @version      2.2
 // @description  makes the line to the sibling block orange
 // @author       @eboodnero
 // @match        https://www.w3schools.com/tags/ref_colornames.asp
@@ -32,19 +32,23 @@ function highlight (){
     document.querySelector("textarea").parentNode.parentNode.parentNode.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
 
     //check to see if this block is a header
-    var check = document.querySelector("textarea").parentElement.parentElement.className.includes("level")
+    var isHeader = document.querySelector("textarea").parentElement.parentElement.className.includes("level")
+    //check if the sibling above is a parent, because if it's not there's no point in highlighting the bullet
+    var siblingIsParent = document.querySelector("textarea").parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].children.length
     //if the textarea isn't a header do this
-    if (check == false){
-        //make the left border of the children of the sibling above text area orange
-        Array.prototype.map.call(document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
-        //make bullet for sibling above text area orange for regular blocks
-        document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+    if (isHeader == false && siblingIsParent > 0){
+
+        //make the left border of the children of the (sibling above textarea) orange
+        Array.prototype.map.call(document.querySelector("textarea").parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
+
+        //make bullet for (sibling above textarea) orange for regular blocks
+        document.querySelector("textarea").parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
     }
     //if it's a header do this
-    else {
+    else if (isHeader == true && siblingIsParent > 0){
         //make the borders of the children of the text area's sibling orange, if the text area is a header
-        Array.prototype.map.call(document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
-        document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+        Array.prototype.map.call(document.querySelector("textarea").parentNode.parentNode.parentNode.parentNode.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
+        document.querySelector("textarea").parentNode.parentNode.parentNode.parentNode.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
     }
 }
 function normalize(){
@@ -59,7 +63,6 @@ function normalize(){
 
 
 function initialize(){
-    initialize = 1
     //get the initial colors of inner, outer bullets and borders
     oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
     backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
@@ -75,7 +78,6 @@ function initialize(){
     //if I press any of these keys highlight the colors of the elements mentioned above
     document.onkeyup = function(e) {
         if ( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) ){
-           // if (document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("class").includes("roam-article") || document.getElementsByTagName("textarea")[0].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getAttribute("class").includes("roam-log")){
                 highlight();
                 setTimeout(highlight, 50);
         }
@@ -98,3 +100,5 @@ var checkExist = setInterval(function() {
       clearInterval(checkExist);
    }
 }, 100); // check every 100ms
+
+
