@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name         CSS Changer2
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  change css stylesheets for roam with F9 and F10
+// @author       @eboodnero
+// @match        http://*/*
+// @grant        none
+// ==/UserScript==
+
+
 var style1 = (<><![CDATA[
 .roam-center{background: #DFDFDF !important;}
 /* change main font */
