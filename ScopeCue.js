@@ -1,10 +1,8 @@
 // ==UserScript==
 // @name         ScopeCue
-// @namespace    http://tampermonkey.net/
-// @version      2.4
-// @description  makes the line to the sibling block orange
+// @version      2.5
+// @description  Highlights which scope you're in
 // @author       @eboodnero
-// @match        https://www.w3schools.com/tags/ref_colornames.asp
 // @grant        none
 // ==/UserScript==
 
@@ -30,24 +28,30 @@ function highlight (){
 
     //check to see if this block is a header
     var isHeader = document.querySelector("textarea").parentNode.parentNode.className.includes("level")
+
     //check if the sibling above is a parent, because if it's not there's no point in highlighting the bullet
     var siblingIsParent = textAreaContainer.previousElementSibling.children[1].children.length
-    //if the textarea isn't a header do this
-    if (isHeader == false && siblingIsParent > 0){
 
-        //make the left border of the children of the (sibling above textarea) orange
-        Array.prototype.map.call(textAreaContainer.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
+    if (siblingIsParent > 0){
+        //if the textarea isn't a header do this
+        if (isHeader == false){
 
-        //make bullet for (sibling above textarea) orange for regular blocks
-        textAreaContainer.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
-    }
-    //if it's a header do this
-    else if (isHeader == true && siblingIsParent > 0){
-        //make the borders of the children of the text area's sibling orange, if the text area is a header
-        Array.prototype.map.call(textAreaContainer.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
-        textAreaContainer.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+            //make the left border of the children of the (sibling above textarea) orange
+            Array.prototype.map.call(textAreaContainer.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
+
+            //make bullet for (sibling above textarea) orange for regular blocks
+            textAreaContainer.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+        }
+        //if it's a header do this
+        else {
+            //make the borders of the children of the text area's sibling orange, if the text area is a header
+            Array.prototype.map.call(textAreaContainer.parentNode.previousElementSibling.children[1].childNodes, e => e.style.borderColor = 'DarkOrange')
+            textAreaContainer.parentNode.previousElementSibling.firstElementChild.querySelector(".simple-bullet-outer").style.backgroundColor = "DarkOrange"
+        }
     }
 }
+
+//un-highlight stuff
 function normalize(){
     //make all borders normal color
     Array.prototype.map.call(document.querySelectorAll(".block-border-left"), e => e.style.borderColor = oldColor)
@@ -57,7 +61,7 @@ function normalize(){
     document.querySelector("textarea").parentElement.parentElement.querySelector(".simple-bullet-inner").style.backgroundColor = oldBulletColor
 }
 
-
+//do this to initialize variable and listeners
 function initialize(){
     //get the initial colors of inner, outer bullets and borders
     oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
