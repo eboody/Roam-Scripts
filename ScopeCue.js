@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ScopeCue
 // @namespace    http://tampermonkey.net/
-// @version      2.5
+// @version      2.6
 // @description  makes the line to the sibling block orange
 // @author       @eboodnero
 // @match        https://www.w3schools.com/tags/ref_colornames.asp
@@ -31,9 +31,17 @@ function highlight (){
 
     //check to see if this block is a header
     var isHeader = document.querySelector("textarea").parentNode.parentNode.className.includes("level")
-
-    //check if the sibling above is a parent, because if it's not there's no point in highlighting the bullet
-    var siblingIsParent = textAreaContainer.previousElementSibling.children[1].children.length
+    //create reference
+    var siblingIsParent
+    if (isHeader == false){
+        //check if the sibling above is a parent, because if it's not there's no point in highlighting the bullet
+        siblingIsParent = textAreaContainer.previousElementSibling.children[1].children.length
+    }
+    else {
+        //header version
+        //check if the sibling above is a parent, because if it's not there's no point in highlighting the bullet
+        siblingIsParent = textAreaContainer.parentNode.previousElementSibling.children[1].children.length
+    }
 
     if (siblingIsParent > 0){
         //if the textarea isn't a header do this
