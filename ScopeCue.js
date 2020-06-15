@@ -1,10 +1,9 @@
 // ==UserScript==
 // @name         ScopeCue
 // @namespace    http://tampermonkey.net/
-// @version      2.6
+// @version      2.7
 // @description  makes the line to the sibling block orange
 // @author       @eboodnero
-// @match        https://www.w3schools.com/tags/ref_colornames.asp
 // @grant        none
 // ==/UserScript==
 
@@ -80,6 +79,7 @@ function initialize(){
     //if I press any of these keys, normalize the colors of the elements. You can see the list of keys and their codes here: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
     document.onkeydown = function(e) {
         if( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) || (e.which == 27)){
+            addListenerToBlocks();
             normalize();
             setTimeout(normalize, 50)
         }
@@ -98,6 +98,7 @@ function initialize(){
 
     //normalize and refresh listeners on mousedown
     document.onmousedown = function(){
+        addListenerToBlocks();
         normalize();
         setTimeout(normalize, 50)
     }
