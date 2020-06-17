@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         ScopeCue
 // @namespace    http://tampermonkey.net/
-// @version      2.7
+// @version      2.8
 // @description  makes the line to the sibling block orange
 // @author       @eboodnero
 // @grant        none
@@ -11,6 +11,7 @@
 var oldColor
 var backgroundColor
 var oldBulletColor
+var initialized = 0
 
 function addListenerToBlocks(){
     //highlight elements on mouse up
@@ -72,20 +73,20 @@ function normalize(){
 
 function initialize(){
     //get the initial colors of inner, outer bullets and borders
-    oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor
+    if (document.querySelector('.block-border-left')){
+    oldColor = window.getComputedStyle(document.querySelector('.block-border-left')).borderColor}
     backgroundColor = window.getComputedStyle(document.querySelector(".simple-bullet-outer")).backgroundColor
     oldBulletColor = window.getComputedStyle(document.querySelector(".simple-bullet-inner")).backgroundColor
 
     //if I press any of these keys, normalize the colors of the elements. You can see the list of keys and their codes here: https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
-    document.onkeydown = function(e) {
+    document.querySelector(".roam-article").onkeydown = function(e) {
         if( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) || (e.which == 27)){
-            addListenerToBlocks();
             normalize();
             setTimeout(normalize, 50)
         }
     };
     //if I press any of these keys highlight the colors of the elements mentioned above
-    document.onkeyup = function(e) {
+    document.querySelector(".roam-article").onkeyup = function(e) {
         if ( e.which == 8 || e.which == 9 || (e.shiftKey && e.which == 9) || e.which == 13 || e.which == 38 || e.which == 40 || (e.altKey && e.shiftKey && e.which == 37)|| (e.altKey && e.shiftKey && e.which == 38)|| (e.altKey && e.shiftKey && e.which == 39)|| (e.altKey && e.shiftKey && e.which == 40) ){
             highlight();
             setTimeout(highlight, 50)
@@ -93,6 +94,8 @@ function initialize(){
     };
     //refresh the listeners on mouseup
     document.onmouseup = function(){
+        highlight();
+        setTimeout(highlight, 50)
         addListenerToBlocks();
     }
 
@@ -110,3 +113,5 @@ var checkExist = setInterval(function() {
       clearInterval(checkExist);
    }
 }, 100); // check every 100ms
+
+setTimeout(5000, initialize);
