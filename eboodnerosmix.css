@@ -159,8 +159,9 @@ label.check-container {
 
 /* lighter sidebar background */
 #right-sidebar {
+
     background-color: #718899 !important;
-    //flex: 1 0 43% !important;
+    flex: 1 0 43%;
     box-shadow: 1px 12px 12px -6px rgba(0,0,0, .4);
 }
 
@@ -232,6 +233,7 @@ label.check-container {
     border: 1px solid #eee;
     border-radius: 0.3em;
     font-size: 0.8em;
+    
 }
 
 .rm-reference-main button:hover {
@@ -425,9 +427,9 @@ span.bp3-icon-small.bp3-icon-star {
 .rm-block-ref::before {
     content:'';
     display: inline-block;
-    width: 12px;
+    width: 10px;
     border-radius: 40px;
-    height: 12px;
+    height: 10px;
     background: #ff913c;
     margin-right: 7px;
 }
@@ -490,11 +492,12 @@ a {
 .intercom-app, .intercom-launcher-frame, #intercom-container {
     display: none;
 }
+
+/*the left sidebar*/
 .roam-body .roam-app .roam-sidebar-container {
     //background-color: #313642;
     //border-right: 1px #eee solid;
-    box-shadow: 6px 0px 6px -6px rgba(0,0,0, .8);
-    
+    box-shadow: 6px 0px 6px -6px rgba(0,0,0, .8);    
 }
 .roam-body .roam-app .roam-sidebar-container .roam-sidebar-content .starred-pages-wrapper .starred-pages .page, .roam-body .roam-app .roam-sidebar-container > * {
     opacity: 100%;
@@ -549,7 +552,8 @@ span.rm-page-ref[data-tag="Article"],
 span.rm-page-ref[data-tag="Video"],
 span.rm-page-ref[data-tag="Vault"],
 span.rm-page-ref[data-tag="Blog Post"],
-span.rm-page-ref[data-tag="Email"] {
+span.rm-page-ref[data-tag="Email"],
+span.rm-page-ref[data-tag="Snooze"]{
     color: white;
     padding: 3px 9px 3px 6px;
     line-height: 1.2em;
@@ -594,6 +598,12 @@ span.rm-page-ref[data-tag="Waiting For"] {
 span.rm-page-ref[data-tag="Waiting For"]:before {
     content: '⌛ '
 }
+span.rm-page-ref[data-tag="Snooze"] {
+    background: #832ef2;
+}
+span.rm-page-ref[data-tag="Snooze"]:before {
+    content: '💤 '
+}
 span.rm-page-ref[data-tag="Weekly Review"] {
     background: #577590;
 }
@@ -629,12 +639,6 @@ span.rm-page-ref[data-tag="Archive"] {
 }
 span.rm-page-ref[data-tag="Archive"]:before {
 	content: '📦 '
-}
-span.rm-page-ref[data-tag="Sub-Projects"] {
-    background: #8AC926;
-}
-span.rm-page-ref[data-tag="Sub-Projects"]:before {
-	content: '🔨 '
 }
 span.rm-page-ref[data-tag="Completed"] {
     background: #3fe012;
@@ -755,4 +759,12 @@ textarea{
     padding: 4px 16px !important;
     margin-bottom: 8px;
     border-bottom: 0px solid rgb(102, 102, 102);
+}
+/*make the path of where the linked reference come from show the whole thing instead of cutting off*/
+.rm-reference-item > div:first-child > div:first-child div span:not(.bp3-icon-chevron-right), .roam-article > div:first-child:not(.roam-log-container) > div:first-child div span:not(.bp3-icon-chevron-right) {
+    max-width: none;
+}
+
+.roam-body{
+	background-color: #202b33;
 }
